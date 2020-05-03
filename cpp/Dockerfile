@@ -13,4 +13,4 @@ COPY ./conan /conan-setup
 USER user
 RUN conan config install /conan-setup
 ONBUILD RUN sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-ONBUILD RUN sudo pacman -Syu
+ONBUILD RUN sudo pacman -Syu --noconfirm
