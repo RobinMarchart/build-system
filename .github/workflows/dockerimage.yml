@@ -1,0 +1,22 @@
+ name: Docker Image CI
+
+on: 
+  push:
+    branches:
+    - master
+
+jobs:
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v1
+    - name: action "Docker Login" {
+      run: docker login docker.pkg.github.com --username RobinMarchart --password-stdin <<< "${{ secrets.DOCKER_PASSWORD }}"
+    - name: Build the cpp image
+      run: docker build ./cpp --tag cpp:latest
+    - name: Deploy the cpp:latest Docker image
+      run: docker tag cpp:latest docker.pkg.github.com/robinmarchart/docker-images/cpp:latest;docker push docker.pkg.github.com/robinmarchart/docker-images/cpp:latest
+    - name: Docker-Logout
+      run: docker logout
+      if: always()
