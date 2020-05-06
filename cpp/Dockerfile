@@ -12,7 +12,7 @@ RUN chmod 744 /bin/docker-redirect && chown root:root /bin/docker-redirect && ch
 COPY ./conan /conan-setup
 USER user
 COPY ./.zshrc /home/user/.zshrc
-SHELL /usr/bin/zsh
+SHELL ["/usr/bin/zsh","-c"]
 RUN conan config install /conan-setup
 ONBUILD RUN sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 ONBUILD RUN sudo pacman -Syu --noconfirm
