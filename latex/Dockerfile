@@ -1,6 +1,6 @@
 FROM archlinux/base:latest
 RUN pacman -Sy --noconfirm reflector;reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-RUN pacman -Syu --noconfirm tar openssh git sudo man python-pip make rsh docker wget socat htop texlive-most texlive-lang texlive-langextra biber pandoc
+RUN pacman -Syu --noconfirm tar openssh git sudo man python-pip make zsh docker wget socat htop texlive-most texlive-lang texlive-langextra biber pandoc
 ENV PATH=$PATH:/usr/bin/core_perl
 RUN groupadd sudo
 RUN useradd -mG sudo user
