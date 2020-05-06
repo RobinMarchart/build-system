@@ -18,5 +18,19 @@ jobs:
     - name: Deploy the cpp:latest Docker image
       run: docker tag cpp:latest docker.pkg.github.com/robinmarchart/docker-images/cpp:latest;docker push docker.pkg.github.com/robinmarchart/docker-images/cpp:latest
     - name: Docker-Logout
-      run: docker logout
+      run: docker logout docker.pkg.github.com
+      if: always()
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v1
+    - name: action "Docker Login" {
+      run: docker login docker.pkg.github.com --username RobinMarchart --password-stdin <<< "${{ secrets.DOCKER_PASSWORD }}"
+    - name: Build the latex image
+      run: docker build ./latex --tag cpp:latest
+    - name: Deploy the latex:latest Docker image
+      run: docker tag latex:latest docker.pkg.github.com/robinmarchart/docker-images/latex:latest;docker push docker.pkg.github.com/robinmarchart/docker-images/latex:latest
+    - name: Docker-Logout
+      run: docker logout docker.pkg.github.com
       if: always()
