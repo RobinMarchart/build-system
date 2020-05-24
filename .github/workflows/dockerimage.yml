@@ -28,7 +28,7 @@ jobs:
     - name: action "Docker Login" {
       run: docker login docker.pkg.github.com --username RobinMarchart --password-stdin <<< "${{ secrets.DOCKER_PASSWORD }}"
     - name: Build the latex image
-      run: docker build ./latex --tag cpp:latest
+      run: docker build ./latex --tag latex:latest
     - name: Deploy the latex:latest Docker image
       run: docker tag latex:latest docker.pkg.github.com/robinmarchart/docker-images/latex:latest;docker push docker.pkg.github.com/robinmarchart/docker-images/latex:latest
     - name: Docker-Logout
